@@ -1,0 +1,58 @@
+html{width: 100%;height: 100%;}
+body{font-family:"Microsoft YaHei"; margin: 0;padding: 0;}
+.header{
+padding: 0;
+margin: 0 auto;
+width: 100%;
+background-color: #252D47;
+height: 55px;
+}
+.tip-name{
+float: left;
+margin: 0 0 0 50px;
+padding-top: 10px;
+color: white;
+font-size: 28px;
+height: 55px;
+width: 200px;
+}
+.wht-lis{
+color: white;
+float: left;
+margin: 0 0 0 10px;
+height: 55px;
+width: 700px;
+}
+.table-line li{
+text-align:center;
+font-size: 22px;
+margin: 0 30px 0 30px;
+list-style-type:none;
+display:inline;
+height: 55px;
+width: 150px;
+}
+.typeColor-as{
+text-decoration:none;
+float:left;
+margin-top: -16px;
+padding-top: 12px;
+height: 43px;
+width: 150px;
+text-align: center;
+background-color: #252D47;
+}
+#typeColor-as{background-color: #E01818;}
+.user-list-info:hover{color: #E01818;}
+.user-list-info{color: #FFFFFF;}
+.mid-content{width: 100%;height: 1000px;background-color: #E6EBF5;}
+.mainbody{
+height: 650px;
+width: 70%;
+margin-left:300px;
+background-color: #FFFFFF;
+}
+.user-logout{float: right;width: 260px;height: 55px;color: #FFFFFF;font-size: 22px;text-align:center;}
+.user-logout img{width: 38px;height: 38px;margin: 7.5px 5px 7.5px 5px;}
+#manage-target{color: #2D2F33;font-size: 16px;text-align: center;margin-top: -12px}
+#manage-target li{list-style-type: none;background: #FFFFFF;width:100px;height:28px;border: 0.5px solid #FFFFFF;border-radius: 3px;margin-left: -35px;}

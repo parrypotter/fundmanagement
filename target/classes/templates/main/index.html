@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>经费管理系统界面</title>
+    <meta charset="utf-8">
+    <link th:href="@{/layout/css/header.css}" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" th:src="@{/easyui/jquery.min.js}"></script>
+    <script type="text/javascript" th:inline="javascript">
+        $(function(){
+            var count = 0;
+            $("#user-logo").click(function(){
+                if(count%2==0){
+                     $("#manage-target").css("display","block");
+                     count++;
+                }
+                else{
+                     $("#manage-target").css("display","none");
+                     count++;
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="header">
+        <div class="tip-name">经费管理系统</div>
+        <div class="wht-lis">
+            <ul class="table-line">
+                <li><a class="typeColor-as" id="typeColor-as">收支情况</a></li>
+                <li><a class="typeColor-as" id="typeColor-bs">收支历史</a></li>
+                <li><a class="typeColor-as" id="typeColor-cs">收支对比</a></li>
+            </ul>
+        </div>
+        <div class="user-logout">
+            <div style="width:80px;height:55px;float:left;text-align:center;"><div style="width:80px;height:13px;"></div>
+                <a th:if="${session.typeId}=='1'" class="user-list-info" th:href="@{/indexAction/userList}" style="font-size:18px;width:80px;margin: 0 auto;text-decoration:none;">用户管理</a>
+            </div>
+            <div style="width:180px;height:55px;float:right;">
+                <img th:src="@{/layout/images/user-logo.png}" id="user-logo">
+                <div style="text-align: center;width: 50px;float: right;margin: 12px 82px 0px 0px;">
+                    <span th:if="${session.typeId}=='1'" style="margin-left:10px;" th:text="${session.admin.username}"></span>
+                    <span th:if="${session.typeId}=='0'" style="margin-left:10px;" th:text="${session.user.username}"></span>
+                </div>
+                <ul id="manage-target" style="display: none;text-decoration:none;"><li><a th:href="@{/system/logout}">退出/注销</a></li></ul>
+            </div>
+        </div>
+    </div>
+    <div class="mid-content">
+        <div class="mainbody" id="Income" style="position: absolute;">
+            <iframe  th:src="@{/iframe/income}" name="Income" width="100%" height="640px" style="scrolling: auto;frameborder: no;border: 0;marginwidth: 0;marginheight: 0;scrolling: no;allowtransparency: yes;"></iframe>
+        </div>
+        <div class="mainbody" id="Linechart" style="position: absolute;display:none;">
+            <iframe  th:src="@{/iframe/Linechart}" name="Linechart" width="100%" height="660px" style="scrolling: auto;frameborder: no;border: 0;marginwidth: 0;marginheight: 0;scrolling: no;allowtransparency: yes;"></iframe>
+        </div>
+        <div class="mainbody" id="Piechart" style="position: absolute;display:none;">
+            <iframe  th:src="@{/iframe/Piechart}" name="Piechart" width="100%" height="660px" style="scrolling: auto;frameborder: no;border: 0;marginwidth: 0;marginheight: 0;scrolling: no;allowtransparency: yes;"></iframe>
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+      $(function(){
+            $("#typeColor-as").click(function(){
+                $("#typeColor-as").css("background","#E01818");
+                $("#typeColor-bs").css("background","#252D47");
+                $("#typeColor-cs").css("background","#252D47");
+                $("#Linechart").hide();
+                $("#Piechart").hide();
+                $("#Income").show();
+            });
+            $("#typeColor-bs").click(function(){
+                $("#typeColor-bs").css("background","#E01818");
+                $("#typeColor-as").css("background","#252D47");
+                $("#typeColor-cs").css("background","#252D47");
+                $("#Income").hide();
+                $("#Piechart").hide();
+                $("#Linechart").show();
+            });
+            $("#typeColor-cs").click(function(){
+                $("#typeColor-cs").css("background","#E01818");
+                $("#typeColor-bs").css("background","#252D47");
+                $("#typeColor-as").css("background","#252D47");
+                $("#Income").hide();
+                $("#Linechart").hide();
+                $("#Piechart").show();
+            });
+        });
+    </script>
+</html>

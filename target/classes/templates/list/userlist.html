@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>用户列表</title>
+    <meta charset="utf-8">
+    <link th:href="@{/layout/css/userlist.css}" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" th:src="@{/easyui/jquery.min.js}"></script>
+    <script type="text/javascript" th:inline="javascript">
+        $(function(){
+            $("tr:even").css("background","#ECF1F9");
+            $("tr:odd").css("background","#FFFFFF");
+        })
+    </script>
+</head>
+<body>
+    <div class="content">
+        <div class="usr-top"><div class="right-map"><a>导出为Excel</a></div></div>
+        <div class="usr-mid">
+            <div>
+                <table>
+                    <tr>
+                        <td>姓名<span class="arrow asc"></span></td>
+                        <td>用户名<span class="arrow dsc"></span></td>
+                        <td>身份证<span class="arrow dsc"></span></td>
+                        <td>手机号<span class="arrow dsc"></span></td>
+                        <td>操作<span class="arrow dsc"></span></td>
+                    </tr>
+                    <tr th:each="listUsers:${listUsers}">
+                        <td th:text="${listUsers.name}"></td>
+                        <td th:text="${listUsers.username}"></td>
+                        <td th:text="${listUsers.phone}"></td>
+                        <td th:text="${listUsers.identity}"></td>
+                        <td>
+                            <a th:href="@{/admin/preUpdateUser(id=${listUsers.uid})}">编辑</a>
+                            <a th:href="@{/admin/deleteUser(id=${listUsers.uid})}">删除</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="usr-bom">
+            <div class="words">共2条记录，当前显示第1-2条</div>
+            <button class="btm" value="1">1</button>
+        </div>
+    </div>
+</body>
+</html>

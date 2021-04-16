@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>收支情况</title>
+    <link th:href="@{/layout/css/addlist.css}" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" th:src="@{/easyui/jquery.min.js}"></script>
+    <script type="text/javascript">
+        $(function(){//chrome浏览器访问跨域请求
+            $("#but-bnt").click(function(){
+                $(".content-out", window.parent.document).css("position","absolute");
+                $(".content-out", window.parent.document).css("opacity","1");
+                $(".content-out", window.parent.document).css("z-index","1");
+                $("#addlist", window.parent.document).css("position","relative");
+                $("#addlist", window.parent.document).css("z-index","-1");
+                $("#addlist", window.parent.document).hide();
+            });
+        });
+    </script>
+</head>
+<body>
+<div class="outsider">
+    <div class="add-title">
+        <div style="height: 4px;"><img id="img-bnt" th:src="@{/layout/images/cancel.png}" style="float: right;" alt="cancel"></div>
+        <h2>添加新数据</h2>
+    </div>
+    <div class="add-selection">
+        <ul>
+            <li><div class="each-selected"><span>报销人</span>
+                    <div class="pre-select">
+                        <select>
+                            <option selected="selected">团队</option>
+                            <option>个人</option>
+                        </select>
+                    </div>
+                </div>
+            </li>
+            <li><div class="each-selected"><span>报销事由</span>
+                    <input type="text" placeholder="请输入事由">
+                </div>
+            </li>
+            <li><div class="each-selected"><span>收入/支出时间</span>
+                    <input type="text" placeholder="请输入收入/支出时间">
+                </div>
+            </li>
+            <li><div class="each-selected"><span>收支金额</span>
+                    <input type="text" placeholder="请输入收支金额">
+                </div>
+            </li>
+            <li><div class="each-selected"><span>报销类型</span>
+                    <select>
+                        <option selected="selected">支出</option>
+                        <option>收入</option>
+                    </select>
+                </div>
+            </li>
+            <li><div class="each-selected"><span>报销日期</span>
+                    <input type="text" placeholder="请输入时间">
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="add-button">
+        <div class="discount">
+            <div class="Bnt-session">
+                <button  class="bnt-con" type="button" value="submit">确定</button>
+                <button id="but-bnt" class="bnt-pas" type="button" value="cancel">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

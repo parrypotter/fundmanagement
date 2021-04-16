@@ -1,0 +1,32 @@
+html{width: 100%;height: 100%;}
+body{margin: 0;padding: 0;font-family:"Microsoft YaHei";background-color:#B4BCCC;}
+.content{width: 860px;height: 231px;background-color:#FFFFFF;}
+.usr-top{width: 860px;height: 50px;}
+.right-map{font-size: 16px;width:118px;height: 29px;text-align: center;border: 0.5px solid #CFD6E4;border-radius: 4px;float:right;margin:14px 9px 9px 9px;}
+.usr-mid{width: 860px;height: 138px;}
+table{margin:9px 9px 9px 9px;width: 842px;height: 120px;text-align: center;border-collapse:collapse;font-size:14px;}
+tr{border: 0.5px solid #B4BCC;}
+tr,td{border-bottom:1px solid #dedede;}
+.be-blue:hover{color: #2985F7;}
+.be-red:hover{color: red;}
+.arrow {
+display: inline-block;
+vertical-align: middle;
+width: 0;
+height: 0;
+margin-left: 5px;
+opacity: 0.76;
+}
+.arrow.asc {
+border-left: 5px solid transparent;
+border-right: 5px solid transparent;
+border-bottom: 5px solid #2985F7;
+}
+.arrow.dsc {
+border-left: 5px solid transparent;
+border-right: 5px solid transparent;
+border-top: 5px solid #B4BCCC;
+}
+.usr-bom{width: 860px;height: 43px;}
+.words{float:left;font-size:14px;color:#2DF33;margin-left:6px;}
+.btm{width:35px;height:35px;color:#FFFFFF;background-color:#2985F7;border-radius: 4px;float: right;margin-right:9px;margin-top:-12px;border: 0.5px solid #2985F7;}

@@ -1,0 +1,27 @@
+* {margin: 0;padding: 0;}
+body{overflow:hidden; width: 100%;height: 100%;}
+.content-out{height: 640px;width: 100%;background-color: #FFFFFF;font-family:"Microsoft YaHei";}
+.content-in{margin: 0 7.5% 0 7.5%;width:85%;height: 642px;padding-top: 40px;}
+.top-search{height: 59px;}
+.top-table{height: 448px;}
+.inputsearch{width: 350px;height: 36px;border: 0.5px solid #216DF5;border-radius: 4px;}
+.starttime, .endtime{width: 170px;height: 38px;border: 0.5px solid #216DF5;border-radius: 4px;}
+.btn-search{width: 80px;height: 39.9px;border: 0.5px solid #216DF5;border-radius: 4px;background-color: #E9F3FE;color:#216DF5;}
+.btn-add{float:right;width: 100px;height: 39.9px;border: 0.5px solid #216DF5;border-radius: 4px;background-color: #E9F3FE;color:#216DF5;}
+table{width: 100%;border-collapse:collapse;font-weight: lighter;border: 0.5px solid #B4BCC;}
+tr{border: 0.5px solid #B4BCC;}
+th,td{width: 118px;height: 50px;border-bottom:1px solid #dedede;/* 表格横线 */text-align: center;}
+td{color: #2D2F33;font-size: 16px;font-family:"Microsoft YaHei";height:50px;}
+tr a{color: #2993F8;text-decoration:none;font-size: 16px;font-family:"Microsoft YaHei";}
+tr td input,select{border: none;outline: none;text-align: center;width: 98px;height: 32px;font-size: 16px;color: #2D2F33;font-family:"Microsoft YaHei";font-weight: lighter;}
+tr td select{border: none;outline: none;text-align: center;text-align-last: center;width: 98px;height: 32px;font-size: 16px;color: #2D2F33;font-family:"Microsoft YaHei";font-weight: lighter;
+-moz-appearance:none;-webkit-appearance:none;}
+.tips select{border: 0.5px solid #B4BCCC;border-radius: 3px;margin-left: 10px;font-size: 16px;font-family:"Microsoft YaHei";}
+.content-footer .page { display: inline-block;padding: 0;margin: 0;}
+.content-footer .page li {display: inline;}
+.content-footer .page li a {color: black;float: left;padding: 6px 8.5px;text-decoration: none;transition: background-color .3s;border: 0.5px solid #B4BCCC;margin: 0 2px 0 2px;border-radius: 4px;}
+.content-footer .page .active {background-color: #2985F7;color: white;border: 0.5px solid #2985F7;}
+.content-footer .page a:hover:not(.active) {background-color: #2985F7;}
+.content-footer .center {text-align: center;float: right;}
+.link-bottom{width: 90%;height: 1px;border-top: solid #B4BCCC 1px;margin: -54px 5% 0 5%;}
+#addlist{display: none;}

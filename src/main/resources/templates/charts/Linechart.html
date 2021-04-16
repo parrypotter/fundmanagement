@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>收支历史</title>
+    <meta charset="utf-8">
+    <script th:src="@{/layout/js/echarts.min.js}"  type="text/javascript"></script>
+    <script type="text/javascript" th:src="@{/easyui/jquery.min.js}"></script>
+</head>
+<body>
+<div class="content-out">
+    <div class="content-in">
+        <div id="box" style="width: 100%;height:640px;"></div>
+        <script>
+    // 获取到这个DOM节点，然后初始化
+    var myChart = echarts.init(document.getElementById("box"));
+    // option 里面的内容基本涵盖你要画的图表的所有内容
+    // 定义样式和数据
+    var option = {
+        backgroundColor: '#FFFFFF',
+        tooltip: {
+            trigger: 'axis'
+        },
+        legend: {
+            data: ['收支历史情况'],
+            textStyle: {
+                    fontSize: 18,
+            },
+        },
+        toolbox: {
+                show : true,
+                feature : {
+                    mark : {show: true},
+                    restore : {show: true},
+                    saveAsImage : {
+                        show: true,
+                        pixelRatio: 1,
+                        title : '保存为图片',
+                        type : 'png',
+                        lang : ['点击保存']
+                        }
+                    },
+                    right:'150'
+            },
+        calculable: true,
+        xAxis:
+            [{
+            name: '报销日期',
+             axisLabel: {
+                rotate: 30,
+                interval: 0
+            },
+            grid: {
+              left: '10%',
+              bottom:'65%'
+            },
+            axisLine: {
+                lineStyle: {
+                    color: 'black'
+                }
+            },
+            type: 'category',
+            // boundaryGap: false,
+            data: function() {
+                var list = [];
+                for (var i = 10; i <= 24; i++) {
+                    if (i <= 12) {
+                        list.push('2017-' + i + '-01');
+                    }
+                    if(i>12&&i<=24){
+                        list.push('2018-' + (i-12) + '-01');
+                    }
+                    else {
+                        list.push('2019-' + (i-24) + '-01');
+                    }
+                }
+                return list;
+            }()
+        }],
+        yAxis:
+            [{
+            name: '剩余金额',
+            type: 'value',
+            axisLine: {
+                lineStyle: {
+                    color: 'black'
+                }
+            }
+        }],
+        series: [{
+            name: '收支历史情况',
+            type: 'line',
+            data: [8554, 8486, 8958, 8456, 8206, 7608, 5000, 4056, 3015, 5364, 2568, 1109, -841, -1120, -568, 2000, 6846, 5473, 6594, 7564, 8120]//14
+        }]
+    };
+    myChart.setOption(option);
+    setTimeout(function (){window.onresize = function () {myChart.resize();}},200);
+    </script>
+    </div>
+</div>
+</body>
+</html>

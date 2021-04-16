@@ -1,0 +1,17 @@
+body{font-family:"Microsoft YaHei";margin: 0;padding: 0;}
+.outsider{width: 500px;height: 542px;background-color: #FFFFFF;margin: 150px 0 0 38%;;padding: 0;
+border: 0.5px solid #8F9092;border-radius: 6px}
+.add-title{height: 32px;text-align: center;color: #2D2F33;}
+.add-title h2{height: 28px;}
+.add-selection ul{list-style:none;margin-top: 40px;font-size: 18px;color: #2DF33;}
+.add-selection ul li{height: 65px;}
+.each-selected{width:420px;height: 32px;}
+.add-selection ul li input{font-size: 15px;width: 276px;height: 28px;color: #D2D2D2;border: 0.5px solid #CFD6E4;border-radius: 4px;float: right;}
+.pre-select{width: 282px;height: 32px;float: right;}
+.add-selection ul li select{font-size: 15px;width: 282px;height: 32px;color: #8f9092;border: 0.5px solid #CFD6E4;border-radius: 4px;float: right;-moz-appearance:none;-webkit-appearance:none;background: url(../images/arrow-down.png) no-repeat right center;}
+.add-button{width:420px;height: 45px;margin: 0 auto;margin-top: -20px;}
+.add-button .discount{width:420px;height: 40px;}
+.Bnt-session{margin: 0 auto;width: 250px;height: 40px;}
+.bnt-con,.bnt-pas{width: 78px;height: 30px;border: 0.5px solid #2985F7;border-radius: 4px;color: #F0F2F5;background-color: #2985F7;font-size: 16px;}
+.bnt-con{float: left;margin-left: 35px;}
+.bnt-pas{margin-left: 40px;}

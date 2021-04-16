@@ -1,0 +1,4 @@
+* {margin: 0;padding: 0;}
+body{overflow:hidden; width: 100%;height: 100%;}
+.content-out{height: 640px;width: 100%;background-color: #FFFFFF;font-family:"Microsoft YaHei";}
+.content-in{margin: 0 7.5% 0 7.5%;width:85%;height: 642px;padding-top: 40px;}

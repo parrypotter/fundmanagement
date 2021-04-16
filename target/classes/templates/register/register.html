@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <title>新用户注册界面</title>
+    <link rel="shortcut icon" href="favicon.ico"/>
+    <link rel="bookmark" href="favicon.ico"/>
+    <link th:href="@{/h-ui/css/H-ui.min.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/h-ui/css/H-ui.register.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/h-ui/lib/icheck/icheck.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/h-ui/lib/Hui-iconfont/1.0.1/iconfont.css}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" th:href="@{/easyui/themes/default/easyui.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/easyui/themes/icon.css}">
+    <script type="text/javascript" th:src="@{/easyui/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/h-ui/js/H-ui.js}"></script>
+    <script type="text/javascript" th:src="@{/h-ui/lib/icheck/jquery.icheck.min.js}"></script>
+    <script type="text/javascript" th:src="@{/easyui/jquery.easyui.min.js}"></script>
+    <script type="text/javascript" th:inline="javascript">
+    <!--th:inline内联获取model模板数据-->
+    $(function(){
+        function checkPassword(password){
+            let regPass = /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[\x21-\x2f\x3a-\x40\x5b-\x60\x7B-\x7F])[\da-zA-Z\x21-\x2f\x3a-\x40\x5b-\x60\x7B-\x7F]{6,16}$/;
+            return regPass.test(password);
+        }
+        function confirmPassword(OldPassword){
+            var old_pass = $("#password").val();
+            return old_pass===OldPassword;
+
+        }
+        function checkPhone(phone){
+            var regPhone = /^1[3456789]\d{9}$/;
+            return regPhone.test(phone);
+        }
+        function checkIdentity(identity) {
+            var format = /^(([1][1-5])|([2][1-3])|([3][1-7])|([4][1-6])|([5][0-4])|([6][1-5])|([7][1])|([8][1-2]))\d{4}(([1][9]\d{2})|([2]\d{3}))(([0][1-9])|([1][0-2]))(([0][1-9])|([1-2][0-9])|([3][0-1]))\d{3}[0-9xX]$/;
+            //号码规则校验
+            if(!format.test(identity)){
+                return false;
+            }
+            //区位码校验
+            //出生年月日校验   前正则限制起始年份为1900;
+            var year = identity.substr(6,4),//身份证年
+                month = identity.substr(10,2),//身份证月
+                date = identity.substr(12,2),//身份证日
+                time = Date.parse(month+'-'+date+'-'+year),//身份证日期时间戳date
+                now_time = Date.parse(new Date()),//当前时间戳
+                dates = (new Date(year,month,0)).getDate();//身份证当月天数
+            if(time>now_time||date>dates){
+                return false;
+            }
+            //校验码判断
+            var c = [7,9,10,5,8,4,2,1,6,3,7,9,10,5,8,4,2];   //系数
+            var b = ['1','0','X','9','8','7','6','5','4','3','2'];  //校验码对照表
+            var identity_array = identity.split("");
+            var sum = 0;
+            for(var k=0;k<17;k++){
+                sum+=parseInt(identity_array[k])*parseInt(c[k]);
+            }
+            return identity_array[17].toUpperCase() === b[sum % 11].toUpperCase();
+        }
+        //注册
+        $("#registerBtn").click(function(){
+            let dataArray = $("#form").serializeArray();
+            var judgeValue = true;//判断值初值为true，代表继续向后台提交
+            $.each(dataArray,function(index,item){
+                if(!item.value){
+                        $.messager.alert("消息提醒","个人信息不能为空！","warning");
+                        judgeValue = false;
+                        return false;
+                }else {
+                    switch (index){
+                        case 0:if(item.value.length>8){ $.messager.alert("消息提醒","用户名长度不能超过8！","warning");judgeValue = false;return false;}break;
+                        case 1:if(item.value.length>6){ $.messager.alert("消息提醒","姓名长度不能超过4！","warning");judgeValue = false;return false;}break;
+                        case 2:if(!checkPassword(item.value)){ $.messager.alert("消息提醒","密码必须包含大小写字母、特殊字符且长度在8~16之间！","warning");judgeValue = false;return false;}break;
+                        case 3:if(!confirmPassword(item.value)){ $.messager.alert("消息提醒","确认密码错误！","warning");judgeValue = false;return false;}break;
+                        case 4:if(!checkPhone(item.value)){ $.messager.alert("消息提醒","手机号码错误！","warning");judgeValue = false;return false;}break;
+                        case 5:if(!checkIdentity(item.value)){ $.messager.alert("消息提醒","身份证号码错误！","warning");judgeValue = false;return false;}break;
+                }
+            }
+            });
+            if(judgeValue){
+                $.ajax({
+                    async: false,
+                    type: "post",
+                    url: /*[[@{/user/addUser}]]*/,
+                    data: dataArray,
+                    dataType: "json", //返回数据类型
+                    success: function(data){
+                        if(data.success){
+                            window.location.href = /*[[@{/login}]]*/;
+                        }else{
+                            $.messager.alert("消息提醒", data.message, "warning");
+                            $("input").val("");//清空所有信息
+                        }
+                    }
+                });
+            }
+        });
+        $("#cancelBtn").click(function(){
+            window.location.href = /*[[@{/login}]]*/;
+        });
+    })
+    </script>
+    <title>注册|经费管理系统</title>
+    <meta name="keywords" content="经费管理系统">
+</head>
+<body>
+<div class="header" style="display: none;"></div>
+<div class="registerWraper">
+    <div id="registerform" class="registerBox">
+        <form id="form" class="form form-horizontal" method="post">
+            <table>
+                <tr>
+                    <td>
+                        <div class="row cl" id="push-ps-01">
+                            <label class="form-label col-3"><i class="Hui-iconfont">&#xe60d;</i></label>
+                            <div class="formControls col-8">
+                                <input id="username" name="username" type="text" placeholder="用户名" class="input-text radius size-L" required="required">
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="row cl" id="push-ls-01">
+                            <label class="form-label col-3"><i class="Hui-iconfont">&#xe62c;</i></label>
+                            <div class="formControls col-8">
+                                <input id="name" name="name" type="text" placeholder="姓名" class="input-text radius size-L" required="required">
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="row cl" id="push-ps-02">
+                            <label class="form-label col-3"><i class="Hui-iconfont">&#xe63f;</i></label>
+                            <div class="formControls col-8">
+                                <input id="password" name="password" type="password" placeholder="密码" class="input-text radius size-L" required="required">
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="row cl" id="push-ls-02">
+                            <label class="form-label col-3"><i class="Hui-iconfont">&#xe6e0;</i></label>
+                            <div class="formControls col-8">
+                                <input id="confirm_password" name="confirm_password" type="password" placeholder="核对密码" class="input-text radius size-L" required="required">
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="row cl" id="push-ps-03">
+                            <label class="form-label col-3"><i class="Hui-iconfont">&#xe696;</i></label>
+                            <div class="formControls col-8">
+                                <input id="phone" name="phone" type="text" placeholder="手机号" class="input-text radius size-L" required="required">
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="row cl" id="push-ls-03">
+                            <label class="form-label col-3"><i class="Hui-iconfont">&#xe602;</i></label>
+                            <div class="formControls col-8">
+                                <input id="identity" name="identity" type="text" placeholder="身份证号码" class="input-text radius size-L" required="required">
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <div class="row">
+                <div class="formControls col-8 col-offset-3">
+                    <input id="cancelBtn" type="button" class="btn btn-secondary radius size-L" value="&nbsp;取&nbsp;&nbsp;&nbsp;&nbsp;消&nbsp;" style="margin-left: 120px;">
+                    <input id="registerBtn" type="button" class="btn btn-primary radius size-L" value="&nbsp;注&nbsp;&nbsp;&nbsp;&nbsp;册&nbsp;" style="margin-left: 40px;background-color: #2985F7;">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="footer" >经费管理系统@Copyright 2021 By PanRui</div>
+</body>
+</html>

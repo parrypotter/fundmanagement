@@ -1,29 +1,44 @@
 package com.panrui.fundmanage.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.panrui.fundmanage.util.DateFormatUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import java.sql.Timestamp;
 import java.util.Date;
 
-/*
+/**
  * @ClassName Fund
  * @Description 经费列表信息
  * @Param 
- **/
+ */
 public class FinanceInfo {
-    private int uid;//自增uid,len=4
-    private int claimer_user_id;//报销人，0代表团队，1代表个人,len=4
-    private String reason;//事由，len=30
-    private String balance;//余额
-    private String recorder_user_id;//记录人，外键映射到User表中的uid,len=10
-    private Integer is_deleted;//逻辑删除 0=未删除,1=已删除,len=4
+
+    private int uid;
+    //自增uid,len=4
+    private int claimer_user_id;
+    //报销人，0代表团队，1代表个人,len=4
+    private String reason;
+    //事由，len=30
+    private String balance;
+    //余额
+    private String recorder_user_id;
+    //记录人，外键映射到User表中的uid,len=10
+    private Integer is_deleted;
+    //逻辑删除 0=未删除,1=已删除,len=4
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private Timestamp create_time;//创建时间，len=6
+    private Timestamp create_time;
+    //创建时间，len=6
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private Timestamp update_time;//修改时间，len=6
-    private String sum;//报销金额数,len=10
-    private int type;//报销类型，1代表支出，2代表收入,len=4
+    private Timestamp update_time;
+    //修改时间，len=6
+    private String sum;
+    //报销金额数,len=10
+    private int type;
+    //报销类型，1代表支出，2代表收入,len=4
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private Timestamp reason_time;//发生事由，len=6
+    private Timestamp reason_time;
+    //发生事由，len=6
 
     public String getBalance() {
         return balance;

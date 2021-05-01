@@ -17,13 +17,10 @@
     <script type="text/javascript" th:src="@{/h-ui/lib/icheck/jquery.icheck.min.js}"></script>
     <script type="text/javascript" th:src="@{/easyui/jquery.easyui.min.js}"></script>
     <script type="text/javascript" th:inline="javascript">
-
-    /*<![CDATA[*/
-
     $(function(){
         //点击图片切换验证码，console控制台打印路径
         $("#vcodeImg").click(function(){
-            var uri = /*[[@{/system/checkcode}]]*/;
+            var uri = /*[[@{/system/checkCode}]]*/;
             this.src = uri + '?t=' + new Date().getTime();
             console.log(this.src);
         });
@@ -58,7 +55,6 @@
             }
         });
 	})
-    /*]]>*/
 </script>
     <title>登录|经费管理系统</title>
     <meta name="keywords" content="经费管理系统">
@@ -84,7 +80,7 @@
             <div class="row cl">
                 <div class="formControls col-8 col-offset-3">
                     <input class="input-text size-L" id="code" name="code" type="text" placeholder="请输入验证码" style="width: 200px;" required="required">
-                    <img title="点击图片切换验证码" id="vcodeImg" th:src="@{/system/checkcode}"></div>
+                    <img title="点击图片切换验证码" id="vcodeImg" th:src="@{/system/checkCode}"></div>
             </div>
 
             <div class="mt-20 skin-minimal" style="text-align: center;">

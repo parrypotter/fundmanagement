@@ -2,11 +2,33 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.panrui.fundmanage.mapper.FinanceMapper">
 
+    <insert id="insertFinanceInfo">
+        insert into tb_finance_info (claimer_user_id,reason,recorder_user_id,create_time,update_time,sum,type)
+        values(#{claimerValue},#{reasonValue},#{recorderValue},#{createTime},#{updateTime},#{sumValue},#{typeValue})
+    </insert>
 
     <select id="getAllFinanceInfoList" resultType="com.panrui.fundmanage.domain.FinanceInfo">
         select * from tb_finance_info limit #{startIndex},#{pageSize}
     </select>
     <select id="getFinancePage" resultType="java.lang.Integer">
         select count(*) from tb_finance_info
+    </select>
+    <select id="getFinanceFromDate" resultType="com.panrui.fundmanage.domain.FinanceInfo">
+        select * from tb_finance_info where create_time like concat(#{createTime},"%") and update_time like concat(#{updateTime},"%") limit #{startIndex},#{pageSize}
+    </select>
+    <select id="getFinanceFromReason" resultType="com.panrui.fundmanage.domain.FinanceInfo">
+        select * from tb_finance_info where reason like concat("%",#{reason},"%") limit #{startIndex},#{pageSize}
+    </select>
+    <select id="getFinanceFromClaimerUserId" resultType="com.panrui.fundmanage.domain.FinanceInfo">
+        select * from tb_finance_info where claimer_user_id = #{claimerUserId} limit #{startIndex},#{pageSize}
+    </select>
+    <select id="getFinanceListLengthFromDate" resultType="java.lang.Integer">
+        select count(*) from tb_finance_info where create_time like concat(#{createTime},"%") and update_time like concat(#{updateTime},"%")
+    </select>
+    <select id="getFinanceListLengthFromReason" resultType="java.lang.Integer">
+        select count(*) from tb_finance_info where reason like concat("%",#{reason},"%")
+    </select>
+    <select id="getFinanceListLengthFromClaimerUserId" resultType="java.lang.Integer">
+        select count(*) from tb_finance_info where claimer_user_id = #{claimerUserId}
     </select>
 </mapper>

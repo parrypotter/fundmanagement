@@ -9,8 +9,6 @@ import com.panrui.fundmanage.util.CodeUtils;
 import com.panrui.fundmanage.util.Const;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
@@ -18,9 +16,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.List;
 
-/*
+/**
+ * @author panrui
  * @ClassName SystemController
  * @Description  System层主要承担公用部分
  * @Param
@@ -29,8 +27,9 @@ import java.util.List;
 @RequestMapping("/system")
 public class SystemController {
 
-
-    /*service*/
+    private final static String USER_TYPE_ID = "0";
+    private final static String ADMIN_TYPE_ID = "1";
+    
     @Autowired
     private AdminService adminService;
     @Autowired
@@ -39,8 +38,8 @@ public class SystemController {
     @GetMapping("/login")
     public String login(){ return "login";}
 
-    /*
-    登录验证
+    /**
+    @Description 登录验证
     * */
     @PostMapping("/login")
     @ResponseBody
@@ -55,7 +54,8 @@ public class SystemController {
         }
         //登录
         switch (typeId){
-            case "1":{//管理员typeId=1
+            //管理员typeId=1
+            case ADMIN_TYPE_ID:{
                 Admin admin = new Admin();
                 admin.setAdminist(username,password);
                 Admin adminResult = ConfigSingleton.getInstance().findAdministrator(admin);
@@ -66,10 +66,11 @@ public class SystemController {
                 }
                 ajaxResult.setSuccess(true);
                 httpSession.setAttribute(Const.ADMIN,adminResult);
-                httpSession.setAttribute(Const.TYPEID,"1");
+                httpSession.setAttribute(Const.TYPEID,ADMIN_TYPE_ID);
                 break;
             }
-            case "0":{//普通员工typeId=0
+            //普通员工typeId=0
+            case USER_TYPE_ID:{
                 User user = new User();
                 user.setUsername(username);
                 user.setPassword(password);
@@ -81,26 +82,29 @@ public class SystemController {
                 }else {
                     ajaxResult.setSuccess(true);
                     httpSession.setAttribute(Const.USER,userResult);
-                    httpSession.setAttribute(Const.TYPEID,"0");
+                    httpSession.setAttribute(Const.TYPEID,USER_TYPE_ID);
                 }
                 break;
             }
+            default:break;
         }
         return ajaxResult;
 
     }
-    /*
-    * 异步Ajax生成验证码
+    /**
+    * @Description 异步Ajax生成验证码
     * 尺寸设定参数vl,w,h
-    * ImageIO字节流写入到前端页面*/
-    @GetMapping("/checkcode")
+    * ImageIO字节流写入到前端页面
+     */
+    @GetMapping("/checkCode")
     public void generateCode(HttpServletRequest request, HttpServletResponse response,
                              @RequestParam(value="vl",defaultValue="4",required=false) Integer vl,
                              @RequestParam(value="w",defaultValue="110",required=false) Integer w,
                              @RequestParam(value="h",defaultValue="39",required=false) Integer h){
         CodeUtils codeUtils = new CodeUtils(vl, w, h);
         String verificationCode = codeUtils.generatorVCode();
-        request.getSession().setAttribute(Const.CODE,verificationCode);//将验证存入session中
+        //将验证存入session中
+        request.getSession().setAttribute(Const.CODE,verificationCode);
         BufferedImage verificationCodeImage = codeUtils.generatorRotateVCodeImage(verificationCode,true);
         try {
             ImageIO.write(verificationCodeImage, "gif", response.getOutputStream());
@@ -109,16 +113,16 @@ public class SystemController {
         }
     }
 
-    /*
-    主要模块跳转
+    /**
+    @Description 主要模块跳转
     */
     @GetMapping("/index")
-    public String returnMainIndex(Model model){
+    public String returnMainIndex(){
         return "main/index";
     }
 
-    /*
-    公用模块：退出登录
+    /**
+    @Description 公用模块：退出登录
     */
     @GetMapping("/logout")
     public String logOut(HttpSession httpSession){
@@ -127,8 +131,8 @@ public class SystemController {
     }
 
 
-    /*
-    Admin和User编辑密码
+    /**
+    @Description Admin和User编辑密码
     该部分涉及到：（1）原密码验证；（2）新密码写入
     * */
     @PostMapping("/editPassword")
@@ -138,7 +142,7 @@ public class SystemController {
         AjaxResult ajaxResult = new AjaxResult();
         String userType = (String)httpSession.getAttribute(Const.TYPEID);
         //Admin
-        if(userType.equals("1")){
+        if(userType.equals(ADMIN_TYPE_ID)){
             Admin admin = (Admin) httpSession.getAttribute(Const.ADMIN);
             if(!oldPassword.equals(admin.getPassword())){
                 ajaxResult.setMessage("原密码错误！");
@@ -162,7 +166,7 @@ public class SystemController {
             }
         }
         //User
-        if(userType.equals("0")){
+        if(userType.equals(USER_TYPE_ID)){
             User user = (User) httpSession.getAttribute(Const.USER);
             if(!oldPassword.equals(user.getPassword())){
                 ajaxResult.setMessage("原密码错误！");

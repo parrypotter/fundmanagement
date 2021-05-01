@@ -1,16 +1,16 @@
 package com.panrui.fundmanage.domain;
-/*
+/**
+ * @author panrui
  * @ClassName UserRegister
  * @Description  包含用户注册信息uid、username、password、phone、identity
- * @Param 
  **/
 public class User {
-    private long uid;//len=11
-    private String username;//len=8
-    private String name;//len=8
-    private String password;//len=16
-    private String phone;//len=11
-    private String identity;//len=18
+    private long uid;
+    private String username;
+    private String name;
+    private String password;
+    private String phone;
+    private String identity;
 
     public String getName() {
         return name;

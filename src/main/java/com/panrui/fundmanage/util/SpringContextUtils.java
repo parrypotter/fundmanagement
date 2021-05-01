@@ -5,7 +5,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
-/*
+/**
  * @ClassName SpringContextUtils
  * @Description  创建一个工具类实现 ApplicationContextAware 接口，用来获取 ApplicationContext 上下文对象，
  *               然后通过 ApplicationContext.getBean() 来动态的获取实例。
@@ -21,9 +21,8 @@ public class SpringContextUtils implements ApplicationContextAware {
         SpringContextUtils.applicationContext = applicationContext;
     }
 
-    /*
+    /**
      * 获取 ApplicationContext
-     *
      * @return
      */
     public static ApplicationContext getApplicationContext(){return applicationContext;}
